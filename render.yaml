@@ -1,8 +1,10 @@
 services:
   - type: web
-    name: language-api
-    env: docker
+    name: llm-api
+    env: python
     plan: free
-    dockerContext: .
-    dockerfilePath: ./Dockerfile
-    autoDeploy: true
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn main:app --host 0.0.0.0 --port 10000"
+    envVars:
+      - key: PORT
+        value: "10000"
